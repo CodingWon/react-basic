@@ -1,3 +1,4 @@
+import "./Main.css";
 /*
     JSX 주의 사항
         1. 중괄호 내부에는 자바스크립트 표현식만 넣을 수 있다. (if , for 사용불가)
@@ -13,10 +14,22 @@
 const Main = () => {
   const user = {
     name: "이정한",
-    isLogin: false,
+    isLogin: true,
   };
+
   if (user.isLogin) {
-    return <div>로그 아웃</div>;
+    return (
+      <div
+        className="logout"
+
+        // style={{
+        //   backgroundColor: "red",
+        //   borderBottom: "5px solid blue",
+        // }}
+      >
+        로그 아웃
+      </div>
+    );
   } else {
     return <div>로그인</div>;
   }
