@@ -9,6 +9,7 @@ const Register = () => {
   });
 
   const countRef = useRef(0);
+  const inputRef = useRef();
 
   const onChange = (e) => {
     countRef.current++; // 수정 횟수를 저장 확인 할 수 있다.
@@ -19,11 +20,20 @@ const Register = () => {
     });
   };
 
+  const onSubmit = (e) => {
+    if (input.name === "") {
+      // 이름을 입력하는 DOM 요소 포커스
+      inputRef.current.focus();
+      console.log(inputRef.current);
+    }
+  };
+
   return (
     <div>
       {/* 1. 이름  */}
       <div>
         <input
+          ref={inputRef}
           name="name"
           value={input.name}
           onChange={onChange}
@@ -56,6 +66,7 @@ const Register = () => {
       <div>
         <textarea name="bio" value={input.bio} onChange={onChange}></textarea>
       </div>
+      <button onClick={onSubmit}>제출</button>
     </div>
   );
 };
