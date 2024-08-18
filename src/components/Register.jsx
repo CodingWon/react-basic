@@ -15,33 +15,23 @@ const Register = () => {
     bio: "",
   });
 
-  console.log(input);
+  /*
+  1. onChage 가 통합되어 어떤 input 에서든 실행된다.
+  2. setInput 함수가 호출된다.
+  3. 인수로 객체를 만들어서 전달
+  4. ...input 스프레드 연산자로 기존값을 나열
+  5. property key 위치에 대괄로[] 를 입력하면 key 값으로 설정
+*/
 
-  const onChangeName = (e) => {
-    setInput({
-      ...input, // 스프레드 연산자 => name 이 아닌 birth, country, bio 값을 그대로 유지시킴 / 없을 경우 name 이 입력 될 때마다 값이 사라짐
-      name: e.target.value,
-    });
-  };
-
-  const onChangeBirth = (e) => {
-    setInput({
-      ...input,
-      birth: e.target.value,
-    });
-  };
-
-  const onChangeCountry = (e) => {
+  const onChange = (e) => {
+    console.log("key:", e.target.name, " value:", e.target.value);
     setInput({
       ...input,
-      country: e.target.value,
-    });
-  };
-
-  const onChangeBio = (e) => {
-    setInput({
-      ...input,
-      bio: e.target.value,
+      [e.target.name]: e.target.value,
+      //   name : hi
+      //  birth : 2024-08-06
+      //  country : kr
+      //  bio : 안녕
     });
   };
 
@@ -50,8 +40,9 @@ const Register = () => {
       {/* 1. 이름  */}
       <div>
         <input
+          name="name"
           value={input.name}
-          onChange={onChangeName}
+          onChange={onChange}
           placeholder="이름"
           type="text"
         />
@@ -59,12 +50,17 @@ const Register = () => {
 
       {/* 2. 생년월일 */}
       <div>
-        <input value={input.birth} onChange={onChangeBirth} type="date" />
+        <input
+          name="birth"
+          value={input.birth}
+          onChange={onChange}
+          type="date"
+        />
       </div>
 
       {/* 3. 국적 */}
       <div>
-        <select value={input.country} onChange={onChangeCountry}>
+        <select name="country" value={input.country} onChange={onChange}>
           <option value=""></option>
           <option value="kr">한국</option>
           <option value="us">미국</option>
@@ -74,7 +70,7 @@ const Register = () => {
 
       {/* 4. 자기소개 */}
       <div>
-        <textarea value={input.bio} onChange={onChangeBio}></textarea>
+        <textarea name="bio" value={input.bio} onChange={onChange}></textarea>
       </div>
     </div>
   );
