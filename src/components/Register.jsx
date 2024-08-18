@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 // 간단한 회원가입 폼
 /*
     1. 이름
@@ -15,13 +15,14 @@ const Register = () => {
     bio: "",
   });
 
+  const refObj = useRef(0);
+  console.log(refObj); // {current : 0}
+  console.log(refObj.current); // {current : 0}
   /*
-  1. onChage 가 통합되어 어떤 input 에서든 실행된다.
-  2. setInput 함수가 호출된다.
-  3. 인수로 객체를 만들어서 전달
-  4. ...input 스프레드 연산자로 기존값을 나열
-  5. property key 위치에 대괄로[] 를 입력하면 key 값으로 설정
-*/
+    useRef
+    - current라는 property 에 현재 보관할 값을 담아두기만 하는 단순한 js 객체
+    - 값이 변경 되어도 컴포넌트를 리렌더링 시키지 않는다.
+ */
 
   const onChange = (e) => {
     console.log("key:", e.target.name, " value:", e.target.value);
@@ -37,6 +38,20 @@ const Register = () => {
 
   return (
     <div>
+      <div>
+        <p>{refObj.current}</p>
+        <button
+          onClick={() => {
+            refObj.current++;
+            console.log(refObj.current);
+            // 값은 변경 되어도 리렌더링이 되지 않아 UI 변경은 없다.
+            // 저장 할때 렌더링 되면 그때 값이 바뀜
+          }}
+        >
+          ref + 1
+        </button>
+      </div>
+
       {/* 1. 이름  */}
       <div>
         <input
